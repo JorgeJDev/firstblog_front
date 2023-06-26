@@ -1,0 +1,86 @@
+<%- include('./templates/header.ejs') %>
+<%- include('./templates/nav.ejs') %>
+
+    <main class="grid-container">
+
+        <% if(article.docs.length > 0) {%>
+    
+            <% article.docs.forEach(element=> {%>
+    
+                <div class="card"> 
+
+                    <div class="imagen">
+                      <img src="<%= element.imagen %>">
+                    </div>
+
+                    <h2 class="titulo">
+                        <%= element.titulo %>
+                    </h2>
+    
+                    <p class="extracto">
+                        <%= element.extracto %>
+                    </p>
+    
+                    <p class="cuerpo">
+                        <%= element.cuerpo %>
+                    </p>
+    
+                    <div class="botones">
+
+                        <button class="admin"><a href="/admin/edit-form/<%=element._id%>">Editar</a></button>
+
+                        <button class="admin"><a href="/admin/remove-article/<%=element._id%>">Eliminar</a></button>
+
+                    </div>
+    
+                </div>
+            
+            <% }); %>
+    
+            <% if (article.hasPrevPage || article.hasNextPage) { %>
+    
+                <div class="paginacion">
+
+                    <% if (article.hasPrevPage) { %>
+
+                      <div id="anterior" class="botones"><button class="admin"><a href="?page=<%= article.prevPage %>">Anterior</a></button></div>
+
+                    <% } %>
+                  
+                    <% const minimoPagina = Math.min(article.totalPages, 3); %>
+                    <% const paginaActual = Math.max(1, article.page - 1); %>
+                    <% const maximoPagina = Math.min(paginaActual + minimoPagina - 1, article.totalPages); %>
+
+                    <% for (let i = paginaActual; i <= maximoPagina; i++) { %>
+
+                      <% if (i === article.page) { %>
+
+                        <div id="pagina-totales" class="botones"><button class="admin"><span><%= i %></span></button></div> 
+
+                      <% } else { %>
+
+                        <div id="pagina-totales" class="botones"><button class="admin"><a href="?page=<%= i %>"><%= i %></a></button></div> 
+
+                      <% } %>
+
+                    <% } %>
+                  
+                    <% if (article.hasNextPage) { %>
+
+                      <div id="siguiente" class="botones"><button class="admin"><a href="?page=<%= article.nextPage %>">Siguiente</a></button></div>
+
+                    <% } %>
+                    
+                  </div>
+    
+            <% } %>
+    
+        <% } else { %>
+    
+            <p>No hay ningún artículo</p>
+    
+        <% } %>
+    
+    </main>
+
+<%- include('./templates/footer.ejs') %>

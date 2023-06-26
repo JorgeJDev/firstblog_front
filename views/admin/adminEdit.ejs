@@ -1,0 +1,46 @@
+<%- include('./templates/header.ejs') %>
+<%- include('./templates/nav.ejs') %>
+
+        <section class="create-form">
+
+            <form action="/admin/edit-article/<%=article._id%>" method="POST" enctype="multipart/form-data">
+
+
+
+                <label class="buscar">Título:</label>
+                <input id="titulo" name="titulo" type="text" placeholder="Título del artículo" value="<%=article.titulo%>">
+
+                <label class="buscar">Extracto del artículo:</label>
+                <input id="extracto" name="extracto" type="text" placeholder="Extracto del artículo" value="<%=article.extracto%>">
+
+                <label class="buscar">Escriba su artículo</label>
+                <textarea id="cuerpo" name="cuerpo" cols="40" rows="20" placeholder="Cuerpo del artículo"> <%=article.cuerpo%></textarea>
+
+                <label class="buscar">Añada la foto de su artículo</label>
+                <input id="foto" name="foto" type="file">
+
+                <input id="imagen" name="imagen" type="hidden" value="<%=article.imagen%>">
+
+                <input type="submit" value="Editar artículo">
+
+            </form>
+
+        </section>
+
+        <% if (typeof errors !=='undefined' ) { %>
+
+            <% errors.forEach(element=> {
+
+                if (!element.msg.includes("Invalid value")) { %>
+
+                <p>
+                    <%= element.msg %>
+                </p>
+
+                <% } }) %>
+
+                    <% } %>
+
+                   
+                    
+<%- include('./templates/footer.ejs') %>
