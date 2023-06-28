@@ -7,9 +7,6 @@ const firebaseApp = initializeApp(firebaseConfig);
 
 const authFb = getAuth(firebaseApp)
 
-
-
-
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
 });

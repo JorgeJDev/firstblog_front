@@ -21,7 +21,7 @@ const formSignIn = async (req, res) => {
 const signIn = async (req, res) => {
 
     const { email, password } = req.body
-
+    console.log(req)
     try {
 
         const userCredentials = await signInWithEmailAndPassword(authFb, email, password);
@@ -110,30 +110,3 @@ module.exports= {
     signUp
 
 };
-
-
-// const signUp = async (req, res) => {
-//     const { email, password } = req.body;
-
-//     try {
-    
-//         const userCredentials = await createUserWithEmailAndPassword(authFb, email, password);
-
-//         const token = userCredentials._tokenResponse.idToken;
-        
-//         res.cookie("token", token, {
-//             httpOnly: true,
-//             secure: true,
-//             sameSite: 'strict',
-//             expires: new Date('2023-12-20'),
-//         });
-
-//         res.redirect('/admin');
-
-//     } catch (error) {
-       
-//         res.render('../views/admin/signUpForm.ejs', {
-//             error
-//         });
-//     }
-// };

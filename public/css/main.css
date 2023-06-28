@@ -10,6 +10,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    
 }
 
 .navbar {
@@ -130,6 +131,7 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    padding: 10px;
 }
 
 .botones.admin button:hover {
@@ -264,7 +266,7 @@ tr:hover td{
     display: block;
     justify-content: center;
     padding: 2%;
-  }
+}
 
 /* Estilos para pantallas mayores a 768px */
 @media screen and (min-width: 768px) {}
