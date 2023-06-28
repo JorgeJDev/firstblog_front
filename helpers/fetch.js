@@ -1,3 +1,4 @@
+const fetch = require('node-fetch');
 /**
  * Esta función realiza una consulta a una API utilizando la URL, método y cuerpo proporcionados.
  * @async
@@ -43,7 +44,7 @@ const consultation = async (url, method, body = {}) => {
 
     } catch (error) {
 
-        console.log(error)
+        console.log(error, 'Error en el fetch')
 
     }
 }
