@@ -1,55 +1,89 @@
 const fetch = require('node-fetch');
+
 /**
- * Esta función realiza una consulta a una API utilizando la URL, método y cuerpo proporcionados.
+ * Función para conectarse a la API
+ * @function consultation
  * @async
- * @function
- * @param {String} url - La URL de la API a consultar.
- * @param {String} [method] - El método HTTP a utilizar en la consulta. Por defecto, "GET".
- * @param {Object} [body={}] - Los datos a enviar a la API. Por defecto, un objeto vacío.
- * @returns {Promise<Object>} - Una Promesa que se resuelve a un objeto que contiene la respuesta de la API.
- * @throws {Error} - Si hay un error durante la consulta a la API.
+ * @param {String} url Recibe la url de la API
+ * @param {String} [method] Recibe el método HTTP
+ * @param {Object} [body = {}] Recibe el objeto req.body
+ * @returns {Promise} Objeto del cuerpo del JSON de la respuesta
+ * @throws Mensaje de error
  */
 const consultation = async (url, method, body = {}) => {
-   
+
+    /**
+     * @typedef {Object} options Opciones del fetch()
+     * @property {String} [method] Método HTTP
+     * @property {String} [body] Método JSON.stringify() sobre el parámetro body
+     * @property {Object} [headers] Objeto con la propiedad 'Content-Type' y valor 'application/json'
+     */
+
     let options = {};
 
-    const data = { ...body }
+
+    if(method == 'POST' || method == 'PUT'){
+
+        /**
+         * @typedef {Object} body
+         * @property {String} title Título de la entrada
+         * @property {String} extract Extracto de la entrada
+         * @property {String} body Cuerpo de la entrada
+         * @property {String} photo URL de la imagen de la entrada
+         */
+
+        /**
+         * @type {body}
+         */
+
+        const data = { ...body };
+
+        /**
+         * @type {options}
+         */
+
+        options = {
+            method,
+            body: JSON.stringify(data),
+            headers: { 'Content-Type': 'application/json' }
+        };
+    };
+
+    if(method == 'DELETE'){
+
+        /**
+         * @type {options}
+         */
+
+        options = { method }
+    };
+
+    // fetch
 
     try {
+        
+        const request = await fetch(url, options);
 
-        if ( method == "POST" || method == "PUT" ) {
+        const response = await request.json();
 
-            options = {
+        if(response.ok){
 
-                method: method,
-                body: JSON.stringify(data),
-                headers: {
-                    "Content-type": "application/json",
-                }
+            return{
+                ok: true,
+                response
+            };
 
-            }
-        }
-
-        if(method == 'DELETE'){
-
-            options = { method }
-            
         };
-
-        let request = await fetch(url, options);
-
-        let respuesta = await request.json();
-
-        return respuesta;
 
     } catch (error) {
 
-        console.log(error, 'Error en el fetch')
+        console.log(`Error en el fetch: ${error}`);
+        
+    };
 
-    }
-}
+};
 
-module.exports = { consultation };
+module.exports = consultation;
 /**
  * @typedef {Object} ObjetoRespuesta
  * @property {json} 
