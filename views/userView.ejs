@@ -10,10 +10,10 @@
 </form>
 
 <main class="grid-container">
+    <% if(console.log(article)) %>
+    <% if(article.length > 0) {%>
 
-    <% if(article.docs.length > 0) {%>
-
-        <% article.docs.forEach(element=> {%>
+        <% article.forEach(element=> {%>
 
             <div class="card">
 

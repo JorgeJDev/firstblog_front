@@ -17,11 +17,11 @@ const getArticles = async (req, res) => {
         const page = parseInt(req.query.page);
         const limit = 5;
         const url = `${process.env.URL_BASE}?page=${page > 0 ? page : 1}&limit=${limit}`;
-        const respuesta = await consultation(url);
-        console.log(respuesta)
+        const {response} = await consultation(url);
+       
    
         res.render('../views/admin/adminView.ejs', {
-          article: respuesta.data
+          article: response.data
         });
         
     } catch (error) {
@@ -50,10 +50,10 @@ const getOneArticle = async (req, res) => {
 
         const id = req.params.id
         const url = `${process.env.URL_BASE}${id}`;
-        const respuesta = await consultation(url)
+        const {response} = await consultation(url)
      
         res.render('../views/admin/detailView.ejs', {
-            article: respuesta.data
+            article: response.data
           });
 
     } catch (error) {
@@ -122,10 +122,10 @@ const formEditArticle  = async (req, res) => {
     const id = req.params.id
     const url = `${process.env.URL_BASE}${id}`;
 
-    const respuesta = await consultation(url)
+    const {response} = await consultation(url)
 
     res.render('../views/admin/adminEdit.ejs', {
-        article: respuesta.data
+        article: response.data
     });
 
 };

@@ -2,7 +2,7 @@ const fetch = require('node-fetch');
 
 /**
  * Función para conectarse a la API
- * @function consultation
+ * @function consultation 
  * @async
  * @param {String} url Recibe la url de la API
  * @param {String} [method] Recibe el método HTTP
@@ -10,7 +10,7 @@ const fetch = require('node-fetch');
  * @returns {Promise} Objeto del cuerpo del JSON de la respuesta
  * @throws Mensaje de error
  */
-const consultation = async (url, method, body = {}) => {
+const consultation  = async (url, method, body = {}) => {
 
     /**
      * @typedef {Object} options Opciones del fetch()
@@ -63,9 +63,9 @@ const consultation = async (url, method, body = {}) => {
     try {
         
         const request = await fetch(url, options);
-
+        
         const response = await request.json();
-
+       
         if(response.ok){
 
             return{
@@ -78,12 +78,12 @@ const consultation = async (url, method, body = {}) => {
     } catch (error) {
 
         console.log(`Error en el fetch: ${error}`);
-        
+       
     };
 
 };
 
-module.exports = consultation;
+module.exports = { consultation } ;
 /**
  * @typedef {Object} ObjetoRespuesta
  * @property {json} 

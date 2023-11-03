@@ -13,13 +13,13 @@ const getAllArticles = async (req, res) => {
 
         const page = parseInt(req.query.page);
         const url = `${process.env.URL_BASE}?page=${page > 0 ? page : 1}`; 
-        const respuesta = await consultation(url);
-       
+        const {response} = await consultation(url);
+        
         res.render('../views/userView.ejs', {
-          article: respuesta.data,
+          article: response.data.docs,
           
         });
-        
+
     } catch (error) {
 
         return res.status(500).json({
@@ -44,10 +44,10 @@ const getOneArticle = async (req, res) => {
 
         const id = req.params.id
         const url = `${process.env.URL_BASE}${id}`;
-        const respuesta = await consultation(url)
-     
+        const {response} = await consultation(url)
+       
         res.render('../views/detailView.ejs', {
-            article: respuesta.data
+            article: response.data
           });
 
     } catch (error) {
@@ -75,10 +75,10 @@ const searchArticles = async (req, res) => {
 
         if(req.query.search != ''){ 
 
-            const respuesta = await consultation(url);
+            const {response} = await consultation(url);
 
             res.render('../views/searchView.ejs', {
-                article: respuesta.data,
+                article: response.data.docs,
             });
 
         } else {
